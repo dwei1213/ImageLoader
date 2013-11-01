@@ -19,7 +19,8 @@ The latest stable version (in `master`) is [available from Maven Central][maven-
 ### Overview
 The demo project is a good place to start but here are the basic steps:
 
-![Shows steps 1) normal ListActivity with images, 2) Create ImageTags, setting it on the ImageViews with setTag, and 3) Call load on the ImageLoader and let the ImageLoader library handle the rest]https://github.com/novoda/ImageLoader/raw/master/extra/documentationImage1.png(General overview)!
+![Shows steps: 1) normal ListActivity with images, 2) Create ImageTags, setting it on the ImageViews with setTag, and 3) Call load on the ImageLoader and let the ImageLoader library handle the rest][img-overview]
+[img-overview]: https://github.com/novoda/ImageLoader/raw/master/extra/documentationImage1.png "General overview"
 
 ### In the Application Class
 Add the following code to initialise and provide access to the ImageLoader. `SettingsBuilder` gives you some control over the caching and network connections.
