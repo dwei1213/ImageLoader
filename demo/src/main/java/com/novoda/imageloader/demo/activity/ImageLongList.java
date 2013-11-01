@@ -31,7 +31,7 @@ public class ImageLongList extends ImageLoaderBaseActivity {
         super.onCreate(savedInstanceState);
 
         /**
-         * TODO Need to prepare imageLoader and imageTagFactory, generally we keep and instance of DefaultImageLoader and ImageTagFactory
+         * TODO Need to prepare imageLoader and imageTagFactory, generally we keep and instance of NovodaImageLoader and ImageTagFactory
          */
         initImageLoader();
     }

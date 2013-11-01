@@ -35,11 +35,11 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
-public class DefaultImageLoaderTest {
+public class NovodaImageLoaderTest {
 
     private LoaderSettings loaderSettings;
     private Context context;
-    private DefaultImageLoader defaultImageLoader;
+    private NovodaImageLoader defaultImageLoader;
 
     @Before
     public void beforeEveryTest() {
@@ -53,14 +53,14 @@ public class DefaultImageLoaderTest {
     public void shouldComplaingIfInternetPermissionIsNotSet() {
         disableManifestPermission(Manifest.permission.INTERNET);
 
-        new DefaultImageLoader(context, loaderSettings);
+        new NovodaImageLoader(context, loaderSettings);
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldComplainIfWriteExternalStoragePermissionIsNotSet() {
         disableManifestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        new DefaultImageLoader(context, loaderSettings);
+        new NovodaImageLoader(context, loaderSettings);
     }
 
     private void disableManifestPermission(String permission) {
@@ -73,7 +73,7 @@ public class DefaultImageLoaderTest {
     @Test
     public void shouldRegisterOnImageLoadedListener() {
         OnImageLoadedListener listener = mock(OnImageLoadedListener.class);
-        defaultImageLoader = new DefaultImageLoader(loaderSettings);
+        defaultImageLoader = new NovodaImageLoader(loaderSettings);
         defaultImageLoader.setOnImageLoadedListener(listener);
 
         WeakReference listenerReference = new WeakReference<OnImageLoadedListener>(listener);
@@ -121,7 +121,7 @@ public class DefaultImageLoaderTest {
         CacheManager cache = mock(CacheManager.class);
         loaderSettings.setCacheManager(cache);
 
-        defaultImageLoader = new DefaultImageLoader(context, loaderSettings);
+        defaultImageLoader = new NovodaImageLoader(context, loaderSettings);
 
         defaultImageLoader.cacheImage("http://king.com/img.png", 100, 100);
         // file decode failed, therefore nothing in cache
@@ -131,7 +131,7 @@ public class DefaultImageLoaderTest {
 
     private void setUpImageManager() {
         setValidImageManagerPermissions();
-        defaultImageLoader = new DefaultImageLoader(context, loaderSettings);
+        defaultImageLoader = new NovodaImageLoader(context, loaderSettings);
     }
 
     private void setValidImageManagerPermissions() {

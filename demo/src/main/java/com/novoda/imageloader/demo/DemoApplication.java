@@ -2,7 +2,7 @@ package com.novoda.imageloader.demo;
 
 import android.app.Application;
 
-import com.novoda.imageloader.core.DefaultImageLoader;
+import com.novoda.imageloader.core.NovodaImageLoader;
 import com.novoda.imageloader.core.ImageLoader;
 import com.novoda.imageloader.core.LoaderSettings;
 import com.novoda.imageloader.core.LoaderSettings.SettingsBuilder;
@@ -26,7 +26,7 @@ public class DemoApplication extends Application {
      * Normal image manager settings
      */
     private void normalImageManagerSettings() {
-        defaultImageLoader = DefaultImageLoader.newInstance(this, new SettingsBuilder()
+        defaultImageLoader = NovodaImageLoader.newInstance(this, new SettingsBuilder()
                 .withCacheManager(new LruBitmapCache(this))
                 .build(this));
     }
@@ -62,7 +62,7 @@ public class DemoApplication extends Application {
         settingsBuilder.withEnableQueryInHashGeneration(false);
 
         LoaderSettings loaderSettings = settingsBuilder.build(this);
-        defaultImageLoader = DefaultImageLoader.newInstance(this, loaderSettings);
+        defaultImageLoader = NovodaImageLoader.newInstance(this, loaderSettings);
     }
 
     /**

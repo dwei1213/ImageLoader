@@ -3,12 +3,12 @@ package com.novoda.imageloader.acceptance;
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.Suppress;
 
-import com.novoda.imageloader.core.DefaultImageLoader;
+import com.novoda.imageloader.core.NovodaImageLoader;
 import com.novoda.imageloader.core.ImageLoader;
 import com.novoda.imageloader.core.LoaderSettings;
 
-public class DefaultImageLoaderInstrumentationTest extends InstrumentationTestCase {
-    public DefaultImageLoaderInstrumentationTest(String name) {
+public class NovodaImageLoaderInstrumentationTest extends InstrumentationTestCase {
+    public NovodaImageLoaderInstrumentationTest(String name) {
         super();
         setName(name);
     }
@@ -17,7 +17,7 @@ public class DefaultImageLoaderInstrumentationTest extends InstrumentationTestCa
     // XXX No assertions so not running - gives NPE
     public void testCacheImage() {
         LoaderSettings settings = new LoaderSettings();
-        ImageLoader defaultImageLoader = DefaultImageLoader.newInstance(getInstrumentation().getTargetContext(), settings);
+        ImageLoader defaultImageLoader = NovodaImageLoader.newInstance(getInstrumentation().getTargetContext(), settings);
         defaultImageLoader.cacheImage("http://king.com/img.png", 100, 100);
     }
 }

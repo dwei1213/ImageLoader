@@ -35,7 +35,7 @@ import java.util.Map;
 /**
  * A default implementation of {@code ImageLoader}.
  * <p/>
- * A {@code DefaultImageLoader} instance can be instantiated at the application
+ * A {@code NovodaImageLoader} instance can be instantiated at the application
  * level and used statically across the application.
  * <p/>
  * The {@code Manifest.permission.WRITE_EXTERNAL_STORAGE} and {@code Manifest.permission.INTERNET}
@@ -44,12 +44,12 @@ import java.util.Map;
  * {@see Manifest#WRITE_EXTERNAL_STORAGE}
  * {@see Manifest#INTERNET}
  */
-public class DefaultImageLoader implements ImageLoader {
+public class NovodaImageLoader implements ImageLoader {
     private final LoaderSettings loaderSettings;
     private final Map<Integer, WeakReference<OnImageLoadedListener>> onImageLoadedListeners;
 
     /**
-     * Returns a new instance of the {@code DefaultImageLoader}.
+     * Returns a new instance of the {@code NovodaImageLoader}.
      *
      * @param loaderSettings the {@link com.novoda.imageloader.core.LoaderSettings}
      *                       used to customise the returned {@link com.novoda.imageloader.core.ImageLoader}
@@ -60,7 +60,7 @@ public class DefaultImageLoader implements ImageLoader {
     }
 
     /**
-     * Returns a new instance of the {@code DefaultImageLoader}.
+     * Returns a new instance of the {@code NovodaImageLoader}.
      *
      * @param context        the {@link android.app.Application} context
      * @param loaderSettings the {@link com.novoda.imageloader.core.LoaderSettings}
@@ -68,10 +68,10 @@ public class DefaultImageLoader implements ImageLoader {
      * @return imageLoader the newly constructed {@code ImageLoader}
      */
     public static ImageLoader newInstance(Context context, LoaderSettings loaderSettings) {
-        return new DefaultImageLoader(context, loaderSettings);
+        return new NovodaImageLoader(context, loaderSettings);
     }
 
-    private DefaultImageLoader(Context context, LoaderSettings loaderSettings) {
+    private NovodaImageLoader(Context context, LoaderSettings loaderSettings) {
         if (context != null) {
             verifyPermissions(context);
         }
