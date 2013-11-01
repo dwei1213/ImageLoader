@@ -9,7 +9,7 @@ h3. 1.5.9
 * Merged pull request "#107":https://github.com/novoda/ImageLoader/pull/107 for reported issue Error with Network urls
 * Fixed flickering when dataset is refreshed even when an animation has been set "#105":https://github.com/novoda/ImageLoader/issue/105
 * Fixed the encoding of the request headers as per issue "#104":https://github.com/novoda/ImageLoader/issue/104
-* Added ability to use Image loader for local images, just use the Uri path of the file "#106":https://github.com/novoda/ImageLoader/issue/106
+* Added ability to use ImageLoader for local images, just use the Uri path of the file "#106":https://github.com/novoda/ImageLoader/issue/106
 * Recently there has been some issues with Robotium 3.6 failing with following error ````Test failed to run to completion. Reason: 'Instrumentation run failed due to 'java.lang.IllegalAccessError''.````
   If you face this problem open module settings in your IDE and make sure that all dependencies scope beside Robotium are "Provided" and only Robotium is "Compile"
 
@@ -70,7 +70,7 @@ h3. Overview
 
 h3. In the Application class
 
-Add the following code to initialise and provide access to the image loader. The settings builder gives you some control over the caching and network connections.
+Add the following code to initialise and provide access to the ImageLoader. The settings builder gives you some control over the caching and network connections.
 
 <pre><code>@Override
 public void onCreate() {
@@ -115,7 +115,7 @@ The connection timeout is the timeout for the initial connection. The read timeo
 
 h3. In the Activity, Fragment or Adapter
 
-When you want to load an image into an ImageView, you just get the image loader from the Application class and call the load method.
+When you want to load an image into an ImageView, you just get the ImageLoader from the Application class and call the load method.
 Here is how you could use it in a ListView with the binder setting the image URL in the ImageView as a tag:
 
 <pre><code>
@@ -130,14 +130,14 @@ private ViewBinder getViewBinder() {
       // Build image tag with remote image URL
       ImageTag tag = imageTagFactory.build(cursor.getString(columnIndex));
       ((ImageView) view).setTag(tag);
-      imageLoader.load(view);
+      ImageLoader.load(view);
       return true;
     }
   };
 }
 </code></pre>
 
-The ImageTagFactory configures image loader with the size of the images to display and the loading image to be displayed whilst the real image is being fetched. The image loader will fetch the image from the in-memory cache (if available), from the SD card (if available) or from the network as a last resort.
+The ImageTagFactory configures ImageLoader with the size of the images to display and the loading image to be displayed whilst the real image is being fetched. The ImageLoader will fetch the image from the in-memory cache (if available), from the SD card (if available) or from the network as a last resort.
 
 h3. Cleaning the SD card cache
 
@@ -156,9 +156,9 @@ There are two things you need to add: Permissions and the Service to clean up th
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </pre></code>
 
-<pre><code><service android:name="com.novoda.imageloader.core.service.CacheCleaner" android:exported="true">
+<pre><code><service android:name="com.novoda.ImageLoader.core.service.CacheCleaner" android:exported="true">
   <intent-filter>
-    <action android:name="com.novoda.imageloader.core.action.CLEAN_CACHE" />
+    <action android:name="com.novoda.ImageLoader.core.action.CLEAN_CACHE" />
   </intent-filter>
 </service>
 </service>
@@ -200,7 +200,7 @@ This method will throw an ImageNotFoundException if there is no image on the oth
 
 h3. Adding an animation
 
-If you want to load a an image using an animation you just have to add an Animation object to the imageLoader.load method
+If you want to load a an image using an animation you just have to add an Animation object to the ImageLoader.load method
 
 <pre><code>
 /* newInstance(Context context, int defaultImageResource) */
@@ -219,14 +219,14 @@ h3. Using Maven
 If you are using Maven you can define the repo and dependency in your POM:
 
 <pre><code><dependency>
-  <groupId>com.novoda.imageloader</groupId>
-  <artifactId>imageloader-core</artifactId>
+  <groupId>com.novoda.ImageLoader</groupId>
+  <artifactId>ImageLoader-core</artifactId>
  <version>1.5.8/version>
 </dependency></code></pre>
 
 h3. As a .jar
 
-You can also simply include the "latest version":http://search.maven.org/remotecontent?filepath=com/novoda/imageloader/imageloader-core/1.5.8/imageloader-core-1.5.8.jar of the .jar file (v 1.5.8) in you project.
+You can also simply include the "latest version":http://search.maven.org/remotecontent?filepath=com/novoda/ImageLoader/ImageLoader-core/1.5.8/ImageLoader-core-1.5.8.jar of the .jar file (v 1.5.8) in you project.
 
 h2. Helping out
 
@@ -266,8 +266,8 @@ Option 1:
 * <i>optional</i> Tick 'add project(s) to working set' and create yourself a 'Library_ImageLoader' working set
 * Hit 'Finish' wait for Eclipse to do it's thing
 * You will have to create a project.properties in the acceptance & demo projects (New > File)
-* Right click on 'imageloader-acceptance' > Properties > Android and tick 'Android 4.1.2' 
-* Right click on 'imageloader-demo' > Properties > Android and tick 'Android 4.1.2'
+* Right click on 'ImageLoader-acceptance' > Properties > Android and tick 'Android 4.1.2' 
+* Right click on 'ImageLoader-demo' > Properties > Android and tick 'Android 4.1.2'
 
 Option 2:
 
