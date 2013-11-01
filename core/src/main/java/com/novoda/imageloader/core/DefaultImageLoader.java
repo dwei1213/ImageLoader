@@ -19,6 +19,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.widget.ImageView;
 
 import com.novoda.imageloader.core.cache.CacheManager;
 import com.novoda.imageloader.core.exception.ImageNotFoundException;
@@ -32,29 +33,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ImageManager has the responsibility to provide a
- * simple and easy interface to access three fundamental part of the imageLoader
- * library : the FileManager, the NetworkManager, and the CacheManager.
- * An ImageManager instance can be instantiated at the application level and used
- * statically across the application.
+ * A default implementation of {@code ImageLoader}.
  * <p/>
- * Manifest.permission.WRITE_EXTERNAL_STORAGE and Manifest.permission.INTERNET are
- * currently necessary for the imageLoader library to work properly.
+ * A {@code DefaultImageLoader} instance can be instantiated at the application
+ * level and used statically across the application.
+ * <p/>
+ * The {@code Manifest.permission.WRITE_EXTERNAL_STORAGE} and {@code Manifest.permission.INTERNET}
+ * are currently necessary for the imageLoader library to work properly.
+ * <p/>
+ * {@see Manifest#WRITE_EXTERNAL_STORAGE}
+ * {@see Manifest#INTERNET}
  */
-public class ImageManager {
-
+public class DefaultImageLoader implements ImageLoader {
     private final LoaderSettings loaderSettings;
     private final Map<Integer, WeakReference<OnImageLoadedListener>> onImageLoadedListeners;
 
-    public ImageManager(LoaderSettings settings) {
-        this(null, settings);
+    /**
+     * Returns a new instance of the {@code DefaultImageLoader}.
+     *
+     * @param loaderSettings the {@link com.novoda.imageloader.core.LoaderSettings}
+     *                       used to customise the returned {@link com.novoda.imageloader.core.ImageLoader}
+     * @return imageLoader the newly constructed {@code ImageLoader}
+     */
+    public static ImageLoader newInstance(LoaderSettings loaderSettings) {
+        return newInstance(null, loaderSettings);
     }
 
-    public ImageManager(Context context, LoaderSettings settings) {
+    /**
+     * Returns a new instance of the {@code DefaultImageLoader}.
+     *
+     * @param context        the {@link android.app.Application} context
+     * @param loaderSettings the {@link com.novoda.imageloader.core.LoaderSettings}
+     *                       used to customise the returned {@link com.novoda.imageloader.core.ImageLoader}
+     * @return imageLoader the newly constructed {@code ImageLoader}
+     */
+    public static ImageLoader newInstance(Context context, LoaderSettings loaderSettings) {
+        return new DefaultImageLoader(context, loaderSettings);
+    }
+
+    private DefaultImageLoader(Context context, LoaderSettings loaderSettings) {
         if (context != null) {
             verifyPermissions(context);
         }
-        this.loaderSettings = settings;
+        this.loaderSettings = loaderSettings;
         onImageLoadedListeners = new HashMap<Integer, WeakReference<OnImageLoadedListener>>();
     }
 
@@ -70,50 +91,44 @@ public class ImageManager {
         }
     }
 
-    public Loader getLoader() {
-        return loaderSettings.getLoader();
-    }
-
-    public FileManager getFileManager() {
-        return loaderSettings.getFileManager();
-    }
-
-    public NetworkManager getNetworkManager() {
-        return loaderSettings.getNetworkManager();
-    }
-
+    @Override
     public CacheManager getCacheManager() {
         return loaderSettings.getCacheManager();
     }
 
+    @Override
+    public FileManager getFileManager() {
+        return loaderSettings.getFileManager();
+    }
+
+    @Override
+    public NetworkManager getNetworkManager() {
+        return loaderSettings.getNetworkManager();
+    }
+
+    @Override
+    public void load(ImageView imageView) {
+        loaderSettings.getLoader().load(imageView);
+    }
+
+    @Override
     public void setOnImageLoadedListener(OnImageLoadedListener listener) {
         onImageLoadedListeners.put(listener.hashCode(), new WeakReference<OnImageLoadedListener>(listener));
         loaderSettings.getLoader().setLoadListener(onImageLoadedListeners.get(listener.hashCode()));
     }
 
-    public void unRegisterOnImageLoadedListener(OnImageLoadedListener listener) {
+    @Override
+    public void removeOnImageLoadedListener(OnImageLoadedListener listener) {
         onImageLoadedListeners.remove(listener.hashCode());
     }
 
     /**
-     * Loads an image into the cache, it does not bind the image to any view.
-     * This method can be used for pre-fetching images.
-     * If the image is already cached, the image is not fetched from the net.
-     * <p/>
-     * <p/>
-     * This method runs in the same thread as the caller method.
-     * Hence, make sure that this method is not called from the main thread.
-     * <p/>
-     * If the image could be retrieved and decoded the resulting bitmap is cached.
-     *
-     * @param url Url of image to be pre-fetched
-     * @width size of the cached image
-     * @height size of the cached image
+     * Runs in the same thread as the calling method; ensure this is not called from the main thread.
      */
+    @Override
     public void cacheImage(String url, int width, int height) {
         Bitmap bm = loaderSettings.getCacheManager().get(url, width, height);
         if (bm == null) {
-
             try {
                 File imageFile = loaderSettings.getFileManager().getFile(url, width, height);
                 if (!imageFile.exists()) {
@@ -125,18 +140,36 @@ public class ImageManager {
                 } else {
                     b = loaderSettings.getBitmapUtil().decodeFileAndScale(imageFile, width, height, loaderSettings.isAllowUpsampling());
                 }
-
                 if (b == null) {
                     // decode failed
                     loaderSettings.getCacheManager().put(url, b);
                 }
-
             } catch (ImageNotFoundException inf) {
                 // no-op
                 inf.printStackTrace();
             }
-
         }
     }
 
+    /**
+     * Use {@link #load(android.widget.ImageView)}
+     *
+     * @return loader
+     * @deprecated in 1.5.11-SNAPSHOT
+     */
+    @Deprecated
+    public Loader getLoader() {
+        return loaderSettings.getLoader();
+    }
+
+    /**
+     * Use {@link #removeOnImageLoadedListener(OnImageLoadedListener)}
+     *
+     * @param listener
+     * @deprecated in 1.5.11-SNAPSHOT
+     */
+    @Deprecated
+    public void unRegisterOnImageLoadedListener(OnImageLoadedListener listener) {
+        onImageLoadedListeners.remove(listener.hashCode());
+    }
 }

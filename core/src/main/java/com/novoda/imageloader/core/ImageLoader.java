@@ -49,10 +49,9 @@ public interface ImageLoader {
      * Loads an image into the cache.
      * <p/>
      * Fetches the image from the network, decoding and caching the retrieved bitmap.
-     * If the image is already cached, this method will do nothing.
+     * If the image is already cached, no operation will occur.
      * <p/>
      * Does not bind the image to any {@code View}; can be used for pre-fetching images.
-     * Runs in the same thread as the calling method; ensure this is not called from the main thread.
      *
      * @param url the URL of the image to be fetched
      * @param width the width of the cached image

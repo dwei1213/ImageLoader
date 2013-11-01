@@ -34,13 +34,13 @@ public class LongSmallImageList extends ImageLoaderBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /**
-         * TODO Need to prepare imageLoader and imageTagFactory, generally we keep and instance of ImageManager and ImageTagFactory
+         * TODO Need to prepare imageLoader and imageTagFactory, generally we keep and instance of DefaultImageLoader and ImageTagFactory
          */
         initImageLoader();
     }
 
     private void initImageLoader() {
-        imageManager = DemoApplication.getImageLoader();
+        defaultImageLoader = DemoApplication.getImageLoader();
         imageTagFactory = createImageTagFactory();
         setAnimationFromIntent(imageTagFactory);
     }
@@ -77,7 +77,7 @@ public class LongSmallImageList extends ImageLoaderBaseActivity {
     }
 
     private void loadImage(ImageView view) {
-        imageManager.getLoader().load(view);
+        defaultImageLoader.load(view);
     }
 
 }

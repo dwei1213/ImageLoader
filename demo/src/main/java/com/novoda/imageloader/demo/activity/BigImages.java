@@ -33,13 +33,13 @@ public class BigImages extends ImageLoaderBaseActivity implements OnImageLoadedL
         super.onCreate(savedInstanceState);
 
         /**
-         * TODO Need to prepare imageLoader and imageTagFactory, generally we keep and instance of ImageManager and ImageTagFactory
+         * TODO Need to prepare imageLoader and imageTagFactory, generally we keep and instance of DefaultImageLoader and ImageTagFactory
          */
         initImageLoader();
     }
 
     private void initImageLoader() {
-        imageManager = DemoApplication.getImageLoader();
+        defaultImageLoader = DemoApplication.getImageLoader();
         imageTagFactory = ImageTagFactory.newInstance(this, R.drawable.bg_img_loading);
         imageTagFactory.setErrorImageId(R.drawable.bg_img_notfound);
         setAnimationFromIntent(imageTagFactory);
@@ -48,13 +48,13 @@ public class BigImages extends ImageLoaderBaseActivity implements OnImageLoadedL
     @Override
     protected void onResume() {
         super.onResume();
-        imageManager.setOnImageLoadedListener(this);
+        defaultImageLoader.setOnImageLoadedListener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        imageManager.unRegisterOnImageLoadedListener(this);
+        defaultImageLoader.removeOnImageLoadedListener(this);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class BigImages extends ImageLoaderBaseActivity implements OnImageLoadedL
     }
 
     private void loadImage(ImageView view) {
-        imageManager.getLoader().load(view);
+        defaultImageLoader.load(view);
     }
 
 }

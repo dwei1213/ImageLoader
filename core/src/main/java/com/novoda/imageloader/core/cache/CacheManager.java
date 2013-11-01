@@ -23,11 +23,7 @@ import android.graphics.Bitmap;
  * NoChace, SoftMapCache, and LruBitmapCache
  */
 public interface CacheManager {
-
     Bitmap get(String url, int width, int height);
-
     void put(String url, Bitmap bmp);
-
     void clean();
-
 }

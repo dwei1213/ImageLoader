@@ -77,11 +77,11 @@ public void onCreate() {
     super.onCreate();
     LoaderSettings settings = new SettingsBuilder()
       .withDisconnectOnEveryCall(true).build(this);
-    imageManager = new ImageManager(this, settings);
+    defaultImageLoader = new ImageManager(this, settings);
 }
 
 public static final ImageManager getImageManager() {
-    return imageManager;
+    return defaultImageLoader;
 }
 </code></pre>
 
@@ -143,7 +143,7 @@ h3. Cleaning the SD card cache
 
 If you want ImageLoader to clean up the SD card cache, add the following code in the onCreate of the Application class:
 
-<pre><code>imageManager.getFileManager().clean();</code></pre>
+<pre><code>defaultImageLoader.getFileManager().clean();</code></pre>
 
 In the settings builder you can configure the expiration period (it's set to 7 days by default).
 

@@ -35,11 +35,11 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
-public class ImageManagerTest {
+public class DefaultImageLoaderTest {
 
     private LoaderSettings loaderSettings;
     private Context context;
-    private ImageManager imageManager;
+    private DefaultImageLoader defaultImageLoader;
 
     @Before
     public void beforeEveryTest() {
@@ -53,14 +53,14 @@ public class ImageManagerTest {
     public void shouldComplaingIfInternetPermissionIsNotSet() {
         disableManifestPermission(Manifest.permission.INTERNET);
 
-        new ImageManager(context, loaderSettings);
+        new DefaultImageLoader(context, loaderSettings);
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldComplainIfWriteExternalStoragePermissionIsNotSet() {
         disableManifestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        new ImageManager(context, loaderSettings);
+        new DefaultImageLoader(context, loaderSettings);
     }
 
     private void disableManifestPermission(String permission) {
@@ -73,8 +73,8 @@ public class ImageManagerTest {
     @Test
     public void shouldRegisterOnImageLoadedListener() {
         OnImageLoadedListener listener = mock(OnImageLoadedListener.class);
-        imageManager = new ImageManager(loaderSettings);
-        imageManager.setOnImageLoadedListener(listener);
+        defaultImageLoader = new DefaultImageLoader(loaderSettings);
+        defaultImageLoader.setOnImageLoadedListener(listener);
 
         WeakReference listenerReference = new WeakReference<OnImageLoadedListener>(listener);
 
@@ -86,7 +86,7 @@ public class ImageManagerTest {
     public void shouldUnregisterOnImageLoadedListener() {
         setUpImageManager();
         OnImageLoadedListener listener = mock(OnImageLoadedListener.class);
-        imageManager.setOnImageLoadedListener(listener);
+        defaultImageLoader.setOnImageLoadedListener(listener);
 
         WeakReference listenerReference = new WeakReference<OnImageLoadedListener>(listener);
         listener = null;
@@ -121,9 +121,9 @@ public class ImageManagerTest {
         CacheManager cache = mock(CacheManager.class);
         loaderSettings.setCacheManager(cache);
 
-        imageManager = new ImageManager(context, loaderSettings);
+        defaultImageLoader = new DefaultImageLoader(context, loaderSettings);
 
-        imageManager.cacheImage("http://king.com/img.png", 100, 100);
+        defaultImageLoader.cacheImage("http://king.com/img.png", 100, 100);
         // file decode failed, therefore nothing in cache
         verify(cache, never()).put("", null);
 
@@ -131,7 +131,7 @@ public class ImageManagerTest {
 
     private void setUpImageManager() {
         setValidImageManagerPermissions();
-        imageManager = new ImageManager(context, loaderSettings);
+        defaultImageLoader = new DefaultImageLoader(context, loaderSettings);
     }
 
     private void setValidImageManagerPermissions() {

@@ -2,7 +2,8 @@ package com.novoda.imageloader.demo;
 
 import android.app.Application;
 
-import com.novoda.imageloader.core.ImageManager;
+import com.novoda.imageloader.core.DefaultImageLoader;
+import com.novoda.imageloader.core.ImageLoader;
 import com.novoda.imageloader.core.LoaderSettings;
 import com.novoda.imageloader.core.LoaderSettings.SettingsBuilder;
 import com.novoda.imageloader.core.cache.LruBitmapCache;
@@ -13,7 +14,7 @@ public class DemoApplication extends Application {
      * It is possible to keep a static reference across the
      * application of the image loader.
      */
-    private static ImageManager imageManager;
+    private static ImageLoader defaultImageLoader;
 
     @Override
     public void onCreate() {
@@ -25,7 +26,7 @@ public class DemoApplication extends Application {
      * Normal image manager settings
      */
     private void normalImageManagerSettings() {
-        imageManager = new ImageManager(this, new SettingsBuilder()
+        defaultImageLoader = DefaultImageLoader.newInstance(this, new SettingsBuilder()
                 .withCacheManager(new LruBitmapCache(this))
                 .build(this));
     }
@@ -61,14 +62,14 @@ public class DemoApplication extends Application {
         settingsBuilder.withEnableQueryInHashGeneration(false);
 
         LoaderSettings loaderSettings = settingsBuilder.build(this);
-        imageManager = new ImageManager(this, loaderSettings);
+        defaultImageLoader = DefaultImageLoader.newInstance(this, loaderSettings);
     }
 
     /**
      * Convenient method of access the imageLoader
      */
-    public static ImageManager getImageLoader() {
-        return imageManager;
+    public static ImageLoader getImageLoader() {
+        return defaultImageLoader;
     }
 
 }

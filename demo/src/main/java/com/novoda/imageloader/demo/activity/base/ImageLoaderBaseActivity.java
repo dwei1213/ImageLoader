@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.*;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 
-import com.novoda.imageloader.core.ImageManager;
+import com.novoda.imageloader.core.ImageLoader;
 import com.novoda.imageloader.core.model.ImageTagFactory;
 import com.novoda.imageloader.core.util.AnimationHelper;
 import com.novoda.imageloader.demo.R;
@@ -19,7 +19,7 @@ public abstract class ImageLoaderBaseActivity extends Activity implements View.O
     private static final int[] CURSOR_TO = new int[]{R.id.list_item_image};
 
     protected ImageTagFactory imageTagFactory;
-    protected ImageManager imageManager;
+    protected ImageLoader defaultImageLoader;
 
     private boolean useCacheFlag;
     private Button cacheModeButton;
