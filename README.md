@@ -11,9 +11,22 @@ ImageLoader is a simple library that makes it easy to download, display and cach
 - [License](#license)
 
 ## Recent Changes
-The latest stable version (in `master`) is [available from Maven Central][maven-stable].
+The latest stable version, 1.5.9, is [available from Maven Central][maven-stable].
+
+* Merged [pull request #107][iss107] for reported issue "Error with Network urls"
+* Fixed flickering when dataset is refreshed even when an animation has been set [#105][iss105]
+* Fixed the encoding of the request headers as per [issue #104][iss104]
+* Added ability to use ImageLoader for local images, just use the `Uri` path of the file [#106][iss106]
+* Recently there has been some issues with Robotium 3.6 failing with following error:
+        Test failed to run to completion. Reason: 'Instrumentation run failed due to 'java.lang.IllegalAccessError'.
+
+    If you face this problem open module settings in your IDE and make sure that all dependencies scope beside Robotium are `provided` and only Robotium is `compile`
 
 [maven-stable]: http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.novoda.imageloader%22%20AND%20a%3A%22imageloader-core%22
+[iss107]: https://github.com/novoda/ImageLoader/pull/107
+[iss106]: https://github.com/novoda/ImageLoader/pull/106
+[iss105]: https://github.com/novoda/ImageLoader/pull/105
+[iss104]: https://github.com/novoda/ImageLoader/pull/104
 
 ## Using the Library
 ### Overview
