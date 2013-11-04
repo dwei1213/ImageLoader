@@ -6,7 +6,6 @@ ImageLoader is a simple library that makes it easy to download, display and cach
 - [Using the Library](#using-the-library)
 - [Getting the library](#getting-the-library)
 - [Contributing](#contributing)
-- [Contributors](#contributors)
 - [History](#history)
 - [License](#license)
 
@@ -163,15 +162,40 @@ If you want to load a an image using an animation you just have to add an `Anima
 ### As a .jar
 
 ## Contributing
-### Reporting Issues
-### Pull Requests
-#### Project Structure
-#### Requirements
-#### Setting Up in Android Studio
+Thanks to all our [contributors](https://github.com/novoda/ImageLoader/graphs/contributors)! Here's how you can get involved.
 
-## Contributors
+### Reporting Issues
+Please use our [issue tracker][link-iss] to report any issues/bugs/exceptions whilst using the ImageLoader.
+
+[link-iss]: https://github.com/novoda/ImageLoader/issues
+
+### Pull Requests
+If you're able, please [submit pull requests][link-pr] to fix issues or add requested features, keeping the following in mind: 
+
+- Ensure that your pull request is made against the `develop` branch, not `master`, and that it's ready to merge (i.e. merge `develop` into your branch and fix conflicts before you submit the pull request).
+
+- Auto-formatter included for IntelliJ/Android Studio and Eclipse in the team-props directory. Please ensure you run the auto-formatter when you submit a pull request.
+
+[link-pr]: https://github.com/novoda/ImageLoader/pulls
+
+#### Project Structure
+// TODO
+
+#### Requirements
+- Android SDK (API 8 and 16)
+- Your favourite IDE (we develop ImageLoader using Android Studio)
+- If your IDE doesn't include Gradle support, a terminal
+
+We build using Gradle, and have included a Gradle Wrapper so there is no need to install Gradle locally.
+
+#### Setting Up in Android Studio
+1. Fork the repository on GitHub, and clone this so it's available locally.
+1. "File > Import Project" in Android Studio, selecting the `build.gradle` file in the root directory.
+1. Choose "auto-import" and "build using wrapper".
+1. "Run > Edit Configurations" to add a configuration to run the "demo" Android Application module. This will build everything, and install the demo project to your device if you have one attached.
 
 ## History
+// TODO
 ### 1.5.8
 ### 1.5.7
 ### 1.5.6
@@ -181,3 +205,4 @@ If you want to load a an image using an animation you just have to add an `Anima
 
 ## License
 Copyright &copy; 2013 [Novoda](http://novoda.com/blog/) Ltd. Released under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
