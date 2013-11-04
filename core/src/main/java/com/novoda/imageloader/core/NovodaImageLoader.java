@@ -127,7 +127,7 @@ public class NovodaImageLoader implements ImageLoader {
      */
     @Override
     public void cacheImage(String url, int width, int height) {
-        Bitmap bm = loaderSettings.getCacheManager().get(url, width, height);
+        Bitmap bm = loaderSettings.getCacheManager().get(url);
         if (bm == null) {
             try {
                 File imageFile = loaderSettings.getFileManager().getFile(url, width, height);

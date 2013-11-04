@@ -65,24 +65,24 @@ public class ConcurrentLoader implements Loader {
         return bitmap != null && !bitmap.isRecycled();
     }
 
-    private Bitmap getCachedBitmap(ImageWrapper w) {
-        return loaderSettings.getCacheManager().get(w.getUrl(), w.getHeight(), w.getWidth());
+    private Bitmap getCachedBitmap(ImageWrapper wrapper) {
+        return loaderSettings.getCacheManager().get(wrapper.getUrl());
     }
 
-    private void setDefaultImage(ImageWrapper w) {
-        if (hasPreviewUrl(w.getPreviewUrl())) {
-            if (isBitmapAlreadyInCache(getPreviewCachedBitmap(w))) {
-                w.setBitmap(getPreviewCachedBitmap(w), false);
+    private void setDefaultImage(ImageWrapper wrapper) {
+        if (hasPreviewUrl(wrapper.getPreviewUrl())) {
+            if (isBitmapAlreadyInCache(getPreviewCachedBitmap(wrapper))) {
+                wrapper.setBitmap(getPreviewCachedBitmap(wrapper), false);
             } else {
-                w.setResourceBitmap(getResourceAsBitmap(w, w.getLoadingResourceId()));
+                wrapper.setResourceBitmap(getResourceAsBitmap(wrapper, wrapper.getLoadingResourceId()));
             }
         } else {
-            w.setResourceBitmap(getResourceAsBitmap(w, w.getLoadingResourceId()));
+            wrapper.setResourceBitmap(getResourceAsBitmap(wrapper, wrapper.getLoadingResourceId()));
         }
     }
 
-    private Bitmap getPreviewCachedBitmap(ImageWrapper w) {
-        return loaderSettings.getCacheManager().get(w.getPreviewUrl(), w.getPreviewHeight(), w.getPreviewWidth());
+    private Bitmap getPreviewCachedBitmap(ImageWrapper wrapper) {
+        return loaderSettings.getCacheManager().get(wrapper.getPreviewUrl());
     }
 
     private void startTask(ImageWrapper w) {
@@ -96,12 +96,12 @@ public class ConcurrentLoader implements Loader {
         }
     }
 
-    private Bitmap getResourceAsBitmap(ImageWrapper w, int resId) {
-        Bitmap b = loaderSettings.getResCacheManager().get("" + resId, w.getWidth(), w.getHeight());
+    private Bitmap getResourceAsBitmap(ImageWrapper wrapper, int resId) {
+        Bitmap b = loaderSettings.getResCacheManager().get("" + resId);
         if (b != null) {
             return b;
         }
-        b = loaderSettings.getBitmapUtil().decodeResourceBitmapAndScale(w, resId, loaderSettings.isAllowUpsampling());
+        b = loaderSettings.getBitmapUtil().decodeResourceBitmapAndScale(wrapper, resId, loaderSettings.isAllowUpsampling());
         loaderSettings.getResCacheManager().put(String.valueOf(resId), b);
         return b;
     }

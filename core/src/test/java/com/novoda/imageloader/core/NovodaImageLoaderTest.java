@@ -50,17 +50,17 @@ public class NovodaImageLoaderTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void shouldComplaingIfInternetPermissionIsNotSet() {
+    public void shouldComplainIfInternetPermissionIsNotSet() {
         disableManifestPermission(Manifest.permission.INTERNET);
 
-        new NovodaImageLoader(context, loaderSettings);
+        NovodaImageLoader.newInstance(context, loaderSettings);
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldComplainIfWriteExternalStoragePermissionIsNotSet() {
         disableManifestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        new NovodaImageLoader(context, loaderSettings);
+        NovodaImageLoader.newInstance(context, loaderSettings);
     }
 
     private void disableManifestPermission(String permission) {
@@ -73,7 +73,7 @@ public class NovodaImageLoaderTest {
     @Test
     public void shouldRegisterOnImageLoadedListener() {
         OnImageLoadedListener listener = mock(OnImageLoadedListener.class);
-        defaultImageLoader = new NovodaImageLoader(loaderSettings);
+        defaultImageLoader = (NovodaImageLoader) NovodaImageLoader.newInstance(loaderSettings);
         defaultImageLoader.setOnImageLoadedListener(listener);
 
         WeakReference listenerReference = new WeakReference<OnImageLoadedListener>(listener);
@@ -121,7 +121,7 @@ public class NovodaImageLoaderTest {
         CacheManager cache = mock(CacheManager.class);
         loaderSettings.setCacheManager(cache);
 
-        defaultImageLoader = new NovodaImageLoader(context, loaderSettings);
+        defaultImageLoader = (NovodaImageLoader) NovodaImageLoader.newInstance(context, loaderSettings);
 
         defaultImageLoader.cacheImage("http://king.com/img.png", 100, 100);
         // file decode failed, therefore nothing in cache
@@ -131,7 +131,7 @@ public class NovodaImageLoaderTest {
 
     private void setUpImageManager() {
         setValidImageManagerPermissions();
-        defaultImageLoader = new NovodaImageLoader(context, loaderSettings);
+        defaultImageLoader = (NovodaImageLoader) NovodaImageLoader.newInstance(context, loaderSettings);
     }
 
     private void setValidImageManagerPermissions() {

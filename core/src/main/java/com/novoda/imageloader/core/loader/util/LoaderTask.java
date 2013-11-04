@@ -214,7 +214,7 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
 
     private Bitmap getNotFoundImage(Context c) {
         String key = "resource" + notFoundResourceId + width + height;
-        Bitmap b = loaderSettings.getResCacheManager().get(key, width, height);
+        Bitmap b = loaderSettings.getResCacheManager().get(key);
         if (b != null) {
             return b;
         }

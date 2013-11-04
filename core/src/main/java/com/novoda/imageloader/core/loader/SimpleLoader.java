@@ -59,33 +59,33 @@ public class SimpleLoader implements Loader {
 
     @Override
     public void load(ImageView imageView) {
-        ImageWrapper w = new ImageWrapper(imageView);
+        ImageWrapper wrapper = new ImageWrapper(imageView);
 
         try {
-            Bitmap b = loaderSettings.getCacheManager().get(w.getUrl(), w.getWidth(), w.getHeight());
+            Bitmap b = loaderSettings.getCacheManager().get(wrapper.getUrl());
             if (b != null && !b.isRecycled()) {
-                w.setBitmap(b, false);
+                wrapper.setBitmap(b, false);
                 return;
             }
-            String thumbUrl = w.getPreviewUrl();
+            String thumbUrl = wrapper.getPreviewUrl();
             if (thumbUrl != null) {
-                b = loaderSettings.getCacheManager().get(thumbUrl, w.getPreviewHeight(), w.getPreviewWidth());
+                b = loaderSettings.getCacheManager().get(thumbUrl);
                 if (b != null && !b.isRecycled()) {
-                    w.setBitmap(b, false);
+                    wrapper.setBitmap(b, false);
                 } else {
-                    setResource(w, w.getLoadingResourceId());
+                    setResource(wrapper, wrapper.getLoadingResourceId());
                 }
             } else {
-                setResource(w, w.getLoadingResourceId());
+                setResource(wrapper, wrapper.getLoadingResourceId());
             }
-            if (w.isUseCacheOnly()) {
+            if (wrapper.isUseCacheOnly()) {
                 return;
             }
-            singleThreadedLoader.push(w);
+            singleThreadedLoader.push(wrapper);
         } catch (ImageNotFoundException inf) {
-            setResource(w, w.getNotFoundResourceId());
+            setResource(wrapper, wrapper.getNotFoundResourceId());
         } catch (Throwable t) {
-            setResource(w, w.getNotFoundResourceId());
+            setResource(wrapper, wrapper.getNotFoundResourceId());
         }
     }
 
@@ -110,13 +110,13 @@ public class SimpleLoader implements Loader {
     }
 
     private void setResource(ImageWrapper w, int resId) {
-        Bitmap b = loaderSettings.getResCacheManager().get("" + resId, w.getWidth(), w.getHeight());
+        Bitmap b = loaderSettings.getResCacheManager().get(String.valueOf(resId));
         if (b != null) {
             w.setBitmap(b, false);
             return;
         }
         b = loaderSettings.getBitmapUtil().decodeResourceBitmapAndScale(w, resId, loaderSettings.isAllowUpsampling());
-        loaderSettings.getResCacheManager().put("" + resId, b);
+        loaderSettings.getResCacheManager().put(String.valueOf(resId), b);
         w.setBitmap(b, false);
     }
 
