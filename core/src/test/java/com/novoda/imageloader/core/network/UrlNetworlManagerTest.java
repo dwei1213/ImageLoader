@@ -48,7 +48,7 @@ public class UrlNetworlManagerTest extends FileTestCase {
     public void beforeEachTest() throws IOException {
         loaderSettings = mock(LoaderSettings.class);
         fileUtil = mock(FileUtil.class);
-        when(loaderSettings.getSdkVersion()).thenReturn("8");
+        when(loaderSettings.getSdkVersion()).thenReturn(8);
         httpURLConnection = mock(HttpURLConnection.class);
         urlNetworkManager = new UrlNetworkManager(loaderSettings, fileUtil) {
             @Override
@@ -110,7 +110,7 @@ public class UrlNetworlManagerTest extends FileTestCase {
     public void shouldSetKeepAliveSystemPropertyForApiLevelOlderThan8() {
         System.setProperty("http.keepAlive", "true");
         assertEquals("true", System.getProperty("http.keepAlive"));
-        when(loaderSettings.getSdkVersion()).thenReturn("4");
+        when(loaderSettings.getSdkVersion()).thenReturn(4);
 
         urlNetworkManager.retrieveImage("http://king.com", imageFile);
         assertEquals("false", System.getProperty("http.keepAlive"));

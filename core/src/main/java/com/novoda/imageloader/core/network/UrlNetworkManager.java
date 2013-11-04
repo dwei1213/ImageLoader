@@ -114,8 +114,8 @@ public class UrlNetworkManager implements NetworkManager {
         return (HttpURLConnection) new URL(url).openConnection();
     }
 
-    private void applyChangeonSdkVersion(String sdkVersion) {
-        if (Integer.parseInt(sdkVersion) < 8) {
+    private void applyChangeonSdkVersion(int sdkVersion) {
+        if (sdkVersion < 8) {
             System.setProperty("http.keepAlive", "false");
         }
     }

@@ -5,6 +5,14 @@ Image download happens off the UI thread and the images are cached with a two-le
 
 h2. Recent changes
 
+h3. 1.6.0
+
+* API change: the deprecated build method build(String, Context) is un-deprecated and the newer one build(String, ImageView) has been removed.
+
+h3. 1.5.11
+
+* We no longer keep a copy of the loader task in the image tag as we now rely on the task itself to discover when it should stop and not update the image view.
+
 h3. 1.5.9
 * Merged pull request "#107":https://github.com/novoda/ImageLoader/pull/107 for reported issue Error with Network urls
 * Fixed flickering when dataset is refreshed even when an animation has been set "#105":https://github.com/novoda/ImageLoader/issue/105

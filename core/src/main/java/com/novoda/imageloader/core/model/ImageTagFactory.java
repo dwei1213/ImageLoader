@@ -223,31 +223,15 @@ public final class ImageTagFactory {
     }
 
     /**
-     * Creates a new ImageTag for the given iamge url. It uses the previously set parameters.
+     * Creates a new ImageTag for the given image url. It uses the previously set parameters.
      * <p/>
      * If useSameUrlForPreviewImage is set to false the preview url has to be set after building the ImageTag.
      *
      * @param url url of original image to be shown in a ImageView
      * @return an ImageTag to be used as tag property of the ImageView.
      */
-    @Deprecated
     public ImageTag build(String url, Context context) {
         return build(url, new AnimationHelper(context));
-    }
-
-    /**
-     * Creates a new ImageTag for the given iamge url. It uses the previously set parameters.
-     * <p/>
-     * If useSameUrlForPreviewImage is set to false the preview url has to be set after building the ImageTag.
-     *
-     * @param url       url of original image to be shown in a ImageView
-     * @param imageView the imageView the tag will be used on
-     * @return an ImageTag to be used as tag property of the ImageView.
-     */
-    public ImageTag build(String url, ImageView imageView) {
-        ImageTag previousTag = (ImageTag) imageView.getTag();
-        ImageTag it = build(url, new AnimationHelper(imageView.getContext()));
-        return it;
     }
 
     ImageTag build(String url, AnimationHelper animationHelper) {
@@ -276,5 +260,4 @@ public final class ImageTagFactory {
             throw new RuntimeException("width or height was not set before calling build()");
         }
     }
-
 }

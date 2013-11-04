@@ -67,7 +67,7 @@ public class LoaderSettings {
     private long expirationPeriod;
     private boolean isQueryIncludedInHash;
     private boolean disconnectOnEveryCall;
-    private String sdkVersion;
+    private int sdkVersion;
     private boolean useAsyncTasks;
     private boolean allowUpsampling;
     private boolean alwaysUseOriginalSize;
@@ -158,11 +158,11 @@ public class LoaderSettings {
         this.disconnectOnEveryCall = disconnectOnEveryCall;
     }
 
-    public void setSdkVersion(String sdkVersion) {
+    public void setSdkVersion(int sdkVersion) {
         this.sdkVersion = sdkVersion;
     }
 
-    public String getSdkVersion() {
+    public int getSdkVersion() {
         return this.sdkVersion;
     }
 
@@ -384,7 +384,7 @@ public class LoaderSettings {
         public LoaderSettings build(Context context) {
             File dir = new FileUtil().prepareCacheDirectory(new AndroidFileContext(context));
             settings.setCacheDir(dir);
-            settings.setSdkVersion(Build.VERSION.SDK);
+            settings.setSdkVersion(Build.VERSION.SDK_INT);
             return settings;
         }
 
