@@ -24,7 +24,7 @@ import android.graphics.Bitmap;
 public class NoCache implements CacheManager {
 
     @Override
-    public Bitmap get(String url, int width, int height) {
+    public Bitmap get(String imageUrl) {
         return null;
     }
 

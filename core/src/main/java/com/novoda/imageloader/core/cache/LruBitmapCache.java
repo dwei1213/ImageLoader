@@ -76,8 +76,8 @@ public class LruBitmapCache implements CacheManager {
     }
 
     @Override
-    public Bitmap get(String url, int width, int height) {
-        return cache.get(url);
+    public Bitmap get(String imageUrl) {
+        return cache.get(imageUrl);
     }
 
     @Override
