@@ -1,5 +1,8 @@
 h1. ImageLoader
 
+
+异步加载图片，缓存，生成缩略图， 基本上每个应用都会需要这个lib。 
+
 ImageLoader is a simple library that makes it easy to download, display and cache remote images in Android apps. 
 Image download happens off the UI thread and the images are cached with a two-level in-memory/SD card cache.
 
